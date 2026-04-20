@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuriimu JP Study</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=1.1">
+</head>
+<body>
+
+    <nav class="alphabet-selector">
+    <a href="index.html" class="back-button">← На главную</a>
+    
+    <div class="mode-switch">
+        <button onclick="switchMode('hiragana')" id="btn-hira" class="active">Хирагана</button>
+        <button onclick="switchMode('katakana')" id="btn-kata">Катакана</button>
+    </div>
+</nav>
+
+    <div class="grid-container" id="main-grid"></div>
+    
+    <script src="assets/js/alphabet.js"></script>
+    <script>
+        function switchMode(mode) {
+            initAlphabet(mode);
+            
+            // Визуальное переключение активной кнопки
+            document.querySelectorAll('.alphabet-selector button').forEach(btn => btn.classList.remove('active'));
+            const activeBtnId = mode === 'hiragana' ? 'btn-hira' : 'btn-kata';
+            document.getElementById(activeBtnId).classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+    // Получаем параметры из ссылки
+        const urlParams = new URLSearchParams(window.location.search);
+        const mode = urlParams.get('mode');
+
+    // Если в ссылке указана катакана, включаем её, иначе — хирагану по умолчанию
+        if (mode === 'katakana') {
+            switchMode('katakana');
+        } else {
+            switchMode('hiragana');
+        }
+        });
+    </script>
+</body>
+</html>
